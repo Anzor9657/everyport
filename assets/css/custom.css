@@ -1,0 +1,76 @@
+.fill-width {
+    width: 100%;
+}
+
+.search-form {
+    width: 268px;
+    height: 40px;
+    position: relative;
+}
+
+.search-form input {
+    padding: .4375rem 2.75rem
+}
+
+.search-form.append {
+    left: 0;
+}
+
+.form-control-left {
+    position: absolute;
+    top: 0;
+    color: #333;
+    padding-left: .875rem;
+    padding-right: .875rem;
+    line-height: 2.25003rem;
+    min-width: 1rem;
+}
+
+.form-control-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #333;
+    padding-left: .875rem;
+    padding-right: .875rem;
+    line-height: 2.25003rem;
+    min-width: 1rem;
+}
+
+.interactive {
+    opacity: 0.5;
+}
+
+.interactive:hover {
+    opacity: 1;
+}
+
+.font-500 {
+    font-weight: 500;
+}
+
+.toogle:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    user-select: none;
+}
+
+.table thead th {
+    font-weight: 700;
+}
+
+.table tbody {
+    border-bottom: 1px solid #ddd;
+}
+
+.gray {
+    color: #f5f5f5;
+}
+
+.back-gray {
+    background: #f5f5f5;
+}
+
+.blue {
+    color: #3290ff;
+}

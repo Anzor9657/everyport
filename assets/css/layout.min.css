@@ -158,6 +158,10 @@ body {
     opacity: 0.5;
 }
 
+.icon.dark {
+    opacity: 1;
+}
+
 .active .icon {
     opacity: 1;
 }
