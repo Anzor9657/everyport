@@ -92,7 +92,7 @@
     font-weight: 700;
 }
 
-.toggle:hover {
+.hovered:hover {
     cursor: pointer;
     opacity: 0.8;
     user-select: none;

@@ -206,31 +206,31 @@
 
                     <!-- Changelog -->
                     <div class="card fill-width p-3">
-                        <form action="#">
+                        <form action="#" id="newAirportForm">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="font-500">Код</label>
-                                        <input type="text" class="form-control" id="codeInput">
+                                        <input type="text" class="form-control" name="code">
                                     </div>
                                     <div class="form-group">
                                         <label class="font-500">Город</label>
-                                        <input type="text" class="form-control" id="cityInput">
+                                        <input type="text" class="form-control" name="city">
                                     </div>
                                     <div class="form-group">
                                         <label class="font-500">Название</label>
-                                        <input type="text" class="form-control" id="nameInput">
+                                        <input type="text" class="form-control" name="name">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="font-500">Название</label>
+                                        <label class="font-500">Фото</label>
                                         <div class="custom-file font-500">
-                                            <input type="file" class="custom-file-input" id="photoInput" lang="ru">
-                                            <label class="custom-file-label" for="inputGroupFile01">Выберите файл</label>
+                                            <input type="file" accept="image/*" class="custom-file-input" name="photo" id="photoInput" lang="ru">
+                                            <label class="custom-file-label font-500" for="photoInput">Выберите файл</label>
                                         </div>
                                     </div>
-                                    <img src="../../assets/images/default-image.png" alt="" class="preview-image pb-1">
+                                    <img src="../../assets/images/default-image.png" id="photoPreview" alt="" class="preview-image pb-1">
                                 </div>
                             </div>
                             <div class="row font-700">
@@ -245,34 +245,25 @@
                                 </div>
                             </div>
                             <hr class="mt-0" />
-                            <div class="row">
-                                <div class="col-4">
-                                    <input type="text" class="form-control" id="nameInput">
-                                </div>
-                                <div class="col-4">
-                                    <input type="text" class="form-control" id="nameInput">
-                                </div>
-                                <div class="col-4">
-                                    <input type="text" class="form-control" id="nameInput">
-                                </div>
+                            <div id="terminalRows">
                             </div>
                             <div class="w-100 pt-3 pb-3 d-flex">
-                                <div class="toggle mr-4">
+                                <div class="hovered mr-4" id="addAirportTerminal">
                                     <img src="../../assets/icons/airport/Add.svg" alt="" class="icon dark font-size-base mr-1">
                                     <span class="blue font-500">Добавить</span>
                                 </div>
-                                <div class="toggle">
+                                <div class="hovered">
                                     <img src="../../assets/icons/airport/Map.svg" alt="" class="icon dark font-size-base mr-1">
                                     <span class="blue font-500">Редактировать схему аэропорта</span>
                                 </div>
                             </div>
                             <div class="w-100 d-flex justify-content-between align-items-center pt-4 pb-2">
                                 <div class="custom-control custom-switch mb-0">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                                    <label class="custom-control-label font-500" for="customSwitch1">Опубликовать в приложении</label>
+                                    <input type="checkbox" class="custom-control-input" name="publishInApp" id="publichSwitch">
+                                    <label class="custom-control-label font-500" for="publichSwitch">Опубликовать в приложении</label>
                                 </div>
                                 <div class="d-flex">
-                                    <button type="submit" class="btn btn-light mr-3 font-500">Сбросить</button>
+                                    <button type="reset" class="btn btn-light mr-3 font-500">Сбросить</button>
                                     <button type="submit" class="btn back-blue white font-500">Добавить</button>
                                 </div>
                             </div>
