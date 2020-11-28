@@ -9,7 +9,6 @@
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-
     <link href="../../assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
@@ -89,7 +88,6 @@
     </div>
     <!-- /main navbar -->
 
-
     <!-- Page content -->
     <div class="page-content">
 
@@ -126,12 +124,12 @@
                             </a>
                         </li>
                         <li class="nav-item nav-item-submenu">
-                            <a href="../airports/airports.html" class="nav-link">
+                            <a href="../airports/airports.html" class="nav-link active d-flex align-items-md-center">
                                 <img src="../../assets/icons/navigation/Catalogue.svg" alt="" class="icon mr-2"> Аэропорты
                             </a>
                         </li>
                         <li class="nav-item nav-item-submenu">
-                            <a href="../schemas/schemas.html" class="nav-link active d-flex align-items-md-center">
+                            <a href="../schemas/schemas.html" class="nav-link">
                                 <img src="../../assets/icons/navigation/Map.svg" alt="" class="icon mr-2"> Схемы
                             </a>
                         </li>
@@ -188,13 +186,12 @@
         </div>
         <!-- /main sidebar -->
 
-
         <!-- Main content -->
         <div class="content-wrapper">
 
             <!-- Page header -->
             <div class="page-title d-flex pl-3">
-                <h4><span class="font-weight-semibold">Сообщения</span></h4>
+                <h4><span class="font-weight-semibold"><a href="airports.html">Аэропорты</a> - Добавить новый</span></h4>
                 <a href="#" class="header-elements-toggle text-default d-md-none"></a>
             </div>
             <!-- /page header -->
@@ -202,39 +199,77 @@
 
             <!-- Content area -->
             <div class="content pt-0">
+
+                <!-- Inner container -->
                 <div class="d-flex align-items-start flex-column flex-md-row">
-                    <div class="card fill-width">
-                        <div class="card-header bg-transparent header-elements-inline border-0">
-                            <form action="#" class="search-form">
-                                <input type="search" id="search" class="form-control" placeholder="Search...">
-                                <div class="form-control-left">
-                                    <img src="../../assets/icons/airport/Search.svg" alt="" class="icon dark font-size-base">
+
+                    <!-- Changelog -->
+                    <div class="card fill-width p-3">
+                        <form action="#" id="newAirportForm">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="font-500">Код</label>
+                                        <input type="text" class="form-control" name="code">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-500">Город</label>
+                                        <input type="text" class="form-control" name="city">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-500">Название</label>
+                                        <input type="text" class="form-control" name="name">
+                                    </div>
                                 </div>
-                                <div class="form-control-right interactive">
-                                    <img src="../../assets/icons/airport/Close-Clear.svg" alt="" class="icon dark font-size-base">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="font-500">Фото</label>
+                                        <div class="custom-file font-500">
+                                            <input type="file" accept="image/*" class="custom-file-input" name="photo" id="photoInput" lang="ru">
+                                            <label class="custom-file-label font-500" for="photoInput">Выберите файл</label>
+                                        </div>
+                                    </div>
+                                    <img src="../../assets/images/default-image.png" id="photoPreview" alt="" class="preview-image pb-1">
                                 </div>
-                            </form>
-                            <a href="form.html?type=new" class="toggle">
-                                <img src="../../assets/icons/airport/Add.svg" alt="" class="icon dark font-size-base mr-1">
-                                <span class="blue font-500">Добавить</span>
-                            </a>
-                        </div>
-                        <div class="card-body pt-0">
-                            <table class=" table">
-                                <thead>
-                                    <tr class="back-gray">
-                                        <th class="w-25">Код</th>
-                                        <th class="w-25">Город</th>
-                                        <th class="w-25">Название</th>
-                                        <th class="w-25">Наполнен информацией</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        </div>
+                            </div>
+                            <div class="row font-700">
+                                <div class="col-4">
+                                    <p>Терминал</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>Координаты</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>Этажей</p>
+                                </div>
+                            </div>
+                            <hr class="mt-0" />
+                            <div id="terminalRows">
+                            </div>
+                            <div class="w-100 pt-3 pb-3 d-flex">
+                                <div class="hovered mr-4" id="addAirportTerminal">
+                                    <img src="../../assets/icons/airport/Add.svg" alt="" class="icon dark font-size-base mr-1">
+                                    <span class="blue font-500">Добавить</span>
+                                </div>
+                                <div class="hovered">
+                                    <img src="../../assets/icons/airport/Map.svg" alt="" class="icon dark font-size-base mr-1">
+                                    <span class="blue font-500">Редактировать схему аэропорта</span>
+                                </div>
+                            </div>
+                            <div class="w-100 d-flex justify-content-between align-items-center pt-4 pb-2">
+                                <div class="custom-control custom-switch mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="publishInApp" id="publichSwitch">
+                                    <label class="custom-control-label font-500" for="publichSwitch">Опубликовать в приложении</label>
+                                </div>
+                                <div class="d-flex">
+                                    <button type="reset" class="btn btn-light mr-3 font-500">Сбросить</button>
+                                    <button type="submit" class="btn back-blue white font-500">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <!-- /content area -->
             </div>
             <!-- /content area -->
         </div>

@@ -9,8 +9,8 @@ $(document).ready(() => {
 
     // Variabes
     const tableData = [
-        { id: 1, code: 'Code', city: 'City1', name: 'Name', info: 'Info' },
-        { id: 2, code: 'Code', city: 'City2', name: 'Name', info: 'Info' }
+        { id: 1, code: 'Code', city: 'City1', name: 'Name', status: 100 },
+        { id: 2, code: 'Code', city: 'City2', name: 'Name', status: 50 }
     ];
     let toRenderTable = [];
     let formData = {
@@ -32,10 +32,14 @@ $(document).ready(() => {
         for (const item of items) {
             $tbody.append(`
             <tr id="${item.id}">
-                <td>${item.code}</td>
+                <td>${item.code.toUpperCase()}</td>
                 <td>${item.city}</td>
                 <td>${item.name}</td>
-                <td>${item.info}</td>
+                <td>
+                    <span class="badge white ${item.status > 50 ? 'back-gray-dark' : 'back-red'}">
+                        ${item.status}%
+                    </span>
+                </td>
             </tr>`);
         }
     };
