@@ -9,9 +9,11 @@ $(document).ready(() => {
 
     // Variabes
     const tableData = [
-        { id: 1, code: 'Code', city: 'City1', name: 'Name', status: 100 },
-        { id: 2, code: 'Code', city: 'City2', name: 'Name', status: 50 }
+        { id: 1, code: 'AER', city: 'Сочи', name: 'Международный аэропорт', status: 100 },
+        { id: 2, code: 'DME', city: 'Москва', name: 'Домодедово', status: 60 },
+        { id: 3, code: 'SVO', city: 'Москва', name: 'Шереметьево', status: 30 },
     ];
+
     let toRenderTable = [];
     let formData = {
         code: '',
@@ -21,12 +23,17 @@ $(document).ready(() => {
         terminals: [{
             terminal: '',
             coordinates: '',
-            floor: '',
+            floors: '',
         }],
         publishInApp: false
     };
 
     // Functions
+    function init() {
+        fillTable(tableData);
+        renderTerminaleRows();
+    }
+
     function fillTable(items) {
         $tbody.empty();
         for (const item of items) {
@@ -61,9 +68,9 @@ $(document).ready(() => {
                     <input type="text" class="form-control" value="${row.coordinates}" name="coordinates">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" value="${row.floor}" name="floor">
+                    <input type="text" class="form-control" value="${row.floors}" name="floors">
                 </div>
-                <img src="../../assets/icons/airport/Delete.svg" class="icon font-size-base hovered mr-2 ml-2 ${formData.terminals.length > 1 ? '' : 'd-none'}">
+                <img src="../../assets/icons/Delete.svg" class="icon font-size-base hovered mr-2 ml-2 ${formData.terminals.length > 1 ? '' : 'd-none'}">
             </div>
         `);
         $terminalRows.append(rows.join(''));
@@ -106,7 +113,7 @@ $(document).ready(() => {
         formData.terminals.push({
             terminal: '',
             coordinates: '',
-            floor: '',
+            floors: '',
         });
         renderTerminaleRows();
     }
@@ -131,7 +138,7 @@ $(document).ready(() => {
             terminals: [{
                 terminal: '',
                 coordinates: '',
-                floor: '',
+                floors: '',
             }],
             publishInApp: false
         };
@@ -151,7 +158,7 @@ $(document).ready(() => {
         .on('click', 'img', deleteTerminalRow);
     $addAirportTerminal
         .on('click', addTerminalRow);
-    // init
-    fillTable(tableData);
-    renderTerminaleRows();
+
+    // Init
+    init();
 })
