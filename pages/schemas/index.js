@@ -4,6 +4,7 @@ $(document).ready(() => {
     const $tbody = $('#tbody');
     const $terminalTabs = $('#terminalTabs');
     const $floorSchemas = $('#floorSchemas');
+    const $saveBtn = $('#saveBtn');
 
     // Variabes
     const tableData = [{
@@ -66,17 +67,17 @@ $(document).ready(() => {
             terminals: [{
                     terminal: 'A',
                     coordinates: 'XCF7+F2, Россия',
-                    floorss: '3',
+                    floors: '3',
                 },
                 {
                     terminal: 'B',
                     coordinates: 'XCF7+F2, Россия',
-                    floorss: '4',
+                    floors: '4',
                 },
                 {
                     terminal: 'C',
                     coordinates: 'XCF7+F2, Россия',
-                    floorss: '5',
+                    floors: '5',
                 }
             ],
             publishInApp: false,
@@ -84,11 +85,13 @@ $(document).ready(() => {
     ];
     let toRenderTable = [];
     let airportId;
+    let selectedTab = 0;
 
     // Functions
     function init() {
         setContentHeader();
         renderTabs();
+        renderFloorSchemas();
         fillTable(tableData);
     }
 
@@ -122,12 +125,26 @@ $(document).ready(() => {
         }
     };
 
+    function searchHandler(event) {
+        const { value } = event.target;
+        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value));
+        fillTable(toRenderTable);
+    };
+
+    function rowClickHandler() {
+        const [, rowId] = $(this).attr('id').split('-');
+        const hrefArray = location.href.split('/');
+        hrefArray[hrefArray.length - 1] = 'form.html';
+        location.href = `${hrefArray.join('/')}?id=${rowId}`;
+    }
+
     function renderTabs() {
+        $terminalTabs.empty();
         const row = tableData.find((item) => item.id === airportId)
         if (row) {
             const terminalRows = row.terminals.map((item, index) => `
                 <li class="nav-item">
-                    <a class="nav-link ${!index ? 'active' : ''} font-700" href="#">
+                    <a class="nav-link ${!index ? 'active' : ''} font-700" href="#" id="tab-${index}">
                         Терминал ${item.terminal}
                         <span class="badge white back-gray-dark">40%</span>
                     </a>
@@ -137,22 +154,68 @@ $(document).ready(() => {
         }
     }
 
-    function searchHandler(event) {
-        const { value } = event.target;
-        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value));
-        fillTable(toRenderTable);
-    };
+    function renderFloorSchemas() {
+        $floorSchemas.empty();
+        const row = tableData.find((item) => item.id === airportId);
+        if (row) {
+            const terminal = row.terminals[selectedTab];
+            let floorSchemaInputs = '';
+            for (let i = 0; i < Number(terminal.floors); i += 1) {
+                let labelText = 'Выберите файл';
+                if (terminal.floorSchemas && terminal.floorSchemas[`floorChema${i + 1}`]) {
+                    labelText = terminal.floorSchemas[`floorChema${i + 1}`].name;
+                };
+                floorSchemaInputs += `
+                <div class="col-lg-6 form-group">
+                    <label class="font-500">Этаж ${i + 1}</label>
+                    <div class="custom-file font-500">
+                        <input type="file" accept="image/*" class="custom-file-input" id="floorChema${i + 1}" lang="ru">
+                        <label class="custom-file-label font-500" for="floorChema${i + 1}">${labelText}</label>
+                    </div>
+                </div>`;
+            };
+            $floorSchemas.append(floorSchemaInputs);
+        }
+    }
 
-    function rowClickHandler(event) {
-        const [, rowId] = $(this).attr('id').split('-');
-        const hrefArray = location.href.split('/');
-        hrefArray[hrefArray.length - 1] = 'form.html';
-        location.href = `${hrefArray.join('/')}?id=${rowId}`;
+    function tabClickHandler() {
+        const [, tabId] = $(this).attr('id').split('-');
+        if (selectedTab !== Number(tabId)) {
+            selectedTab = Number(tabId);
+            $terminalTabs.find('.active').removeClass('active');
+            $(this).addClass('active');
+            renderFloorSchemas();
+        }
+    }
+
+    function fileInputHandler(event) {
+        const schemaKey = $(event.target).prop('id');
+        const [, terminalId] = $terminalTabs.find('.active').prop('id').split('-')
+        const row = tableData.find((item) => item.id === airportId);
+        if (row) {
+            const [file] = event.target.files;
+            tableData.forEach((item) => {
+                if (item.id === airportId) {
+                    if (!item.terminals[terminalId].floorSchemas) {
+                        item.terminals[terminalId].floorSchemas = {};
+                    }
+                    item.terminals[terminalId].floorSchemas[schemaKey] = file;
+                }
+            });
+            $(`label[for="${schemaKey}"]`).text(file.name);
+        }
+    }
+
+    function saveSchemas(event) {
+        console.table(tableData);
     }
 
     // Handlers
     $search.on('input', searchHandler);
-    $tbody.on('click', 'tr', rowClickHandler)
+    $tbody.on('click', 'tr', rowClickHandler);
+    $terminalTabs.on('click', 'a', tabClickHandler);
+    $floorSchemas.on('input', fileInputHandler);
+    $saveBtn.on('click', saveSchemas);
 
     // Init
     init();
