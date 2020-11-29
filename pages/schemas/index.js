@@ -1,6 +1,7 @@
 $(document).ready(() => {
     // Elements
     const $search = $('#search');
+    const $clearSearchBtn = $('#clearSearchBtn');
     const $tbody = $('#tbody');
     const $terminalTabs = $('#terminalTabs');
     const $floorSchemas = $('#floorSchemas');
@@ -110,8 +111,9 @@ $(document).ready(() => {
 
     function fillTable(items) {
         $tbody.empty();
+        let tableRows = '';
         for (const item of items) {
-            $tbody.append(`
+            tableRows += `
             <tr id="row-${item.id}" class="row-hovered">
                 <td>${item.code.toUpperCase()}</td>
                 <td>${item.city}</td>
@@ -121,15 +123,21 @@ $(document).ready(() => {
                         ${item.status}%
                     </span>
                 </td>
-            </tr>`);
+            </tr>`;
         }
+        $tbody.append(tableRows);
     };
 
     function searchHandler(event) {
         const { value } = event.target;
-        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value));
+        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value.toLowerCase()));
         fillTable(toRenderTable);
     };
+
+    function clearSearch() {
+        $search.val('');
+        fillTable(tableData);
+    }
 
     function rowClickHandler() {
         const [, rowId] = $(this).attr('id').split('-');
@@ -212,6 +220,7 @@ $(document).ready(() => {
 
     // Handlers
     $search.on('input', searchHandler);
+    $clearSearchBtn.on('click', clearSearch);
     $tbody.on('click', 'tr', rowClickHandler);
     $terminalTabs.on('click', 'a', tabClickHandler);
     $floorSchemas.on('input', fileInputHandler);

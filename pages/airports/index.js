@@ -1,6 +1,7 @@
 $(document).ready(() => {
     // Elements
     const $search = $('#search');
+    const $clearSearchBtn = $('#clearSearchBtn');
     const $tbody = $('#tbody');
     const $newAirportForm = $('#newAirportForm');
     const $photoPreview = $('#photoPreview');
@@ -36,8 +37,9 @@ $(document).ready(() => {
 
     function fillTable(items) {
         $tbody.empty();
+        let tableRows = '';
         for (const item of items) {
-            $tbody.append(`
+            tableRows += `
             <tr id="${item.id}">
                 <td>${item.code.toUpperCase()}</td>
                 <td>${item.city}</td>
@@ -47,15 +49,21 @@ $(document).ready(() => {
                         ${item.status}%
                     </span>
                 </td>
-            </tr>`);
+            </tr>`;
         }
+        $tbody.append(tableRows);
     };
 
     function searchHandler(event) {
         const { value } = event.target;
-        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value));
+        toRenderTable = tableData.filter((item) => item.city.toLowerCase().includes(value.toLowerCase()));
         fillTable(toRenderTable);
     };
+
+    function clearSearch() {
+        $search.val('');
+        fillTable(tableData);
+    }
 
     function renderTerminaleRows() {
         $terminalRows.empty();
@@ -149,6 +157,7 @@ $(document).ready(() => {
 
     // Handlers
     $search.on('input', searchHandler);
+    $clearSearchBtn.on('click', clearSearch);
     $newAirportForm
         .on('submit', formSubmitHandler)
         .on('reset', formReset)
