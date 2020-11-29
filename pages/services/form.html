@@ -27,11 +27,12 @@
     <!-- Theme JS files -->
     <script src="../../assets/js/plugins/prism.min.js"></script>
     <script src="../../assets/js/plugins/sticky.min.js"></script>
-
+    <script src="../../global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../assets/js/main/app.js"></script>
     <script src="../../assets/js/pages/components_scrollspy.js"></script>
     <!-- /theme JS files -->
-
 </head>
 
 <body data-spy="scroll" data-target=".sidebar-component-right">
@@ -205,8 +206,9 @@
                         <div id="form">
                             <div class="row">
                                 <div class="col-12 form-group">
-                                    <label for="categorySelect" class="font-500">Категории</label>
-                                    <select class="form-control font-500" id="categorySelect" name="category"></select>
+                                    <label class="font-500">Категории</label>
+                                    <select class="form-control select" id="categorySelect" name="category" data-fouc>
+									</select>
                                 </div>
                             </div>
                         </div>
