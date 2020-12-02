@@ -27,9 +27,10 @@
     <!-- Theme JS files -->
     <script src="../../assets/js/plugins/prism.min.js"></script>
     <script src="../../assets/js/plugins/sticky.min.js"></script>
-
     <script src="../../assets/js/main/app.js"></script>
     <script src="../../assets/js/pages/components_scrollspy.js"></script>
+    <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_checkboxes_radios.js"></script>
     <!-- /theme JS files -->
 
 </head>
@@ -253,9 +254,11 @@
                                 </div>
                             </div>
                             <div class="w-100 d-flex justify-content-between align-items-center pt-4 pb-2">
-                                <div class="custom-control custom-switch mb-0">
-                                    <input type="checkbox" class="custom-control-input" name="publishInApp" id="publichSwitch">
-                                    <label class="custom-control-label font-500" for="publichSwitch">Опубликовать в приложении</label>
+                                <div class="form-check form-check-switchery font-500">
+                                    <label class="form-check-label">
+										<input type="checkbox" class="form-check-input-switchery" name="publishInApp" data-fouc>
+										Опубликовать в приложении
+									</label>
                                 </div>
                                 <div class="d-flex">
                                     <button type="reset" class="btn btn-light mr-3 font-500">Сбросить</button>
