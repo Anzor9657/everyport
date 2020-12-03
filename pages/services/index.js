@@ -7,6 +7,7 @@ $(document).ready(() => {
     const $langTabs = $('#langTabs');
     const $categorySelect = $('#categorySelect');
     const $visibilitySelect = $('#visibilitySelect');
+    const $categoriesSelect = $('#categoriesSelect');
     const $propsSelect = $('#propsSelect');
     const $contentSelect = $('#contentSelect');
     const $funcsSelect = $('#funcsSelect');
@@ -19,14 +20,16 @@ $(document).ready(() => {
     class FormData {
         _category
         _name
-        _visibilities
+        _visibilities = []
         _openIn
-        _generalDescriptionStatus
-        _propertiesStatus
-        _companyStatus
-        _properties
-        _content
-        _functions
+        _generalDescriptionStatus = false
+        _categoriesStatus = false
+        _propertiesStatus = false
+        _companyStatus = false
+        _categories = []
+        _properties = []
+        _content = []
+        _functions = []
         _icon
 
         constructor(props) {
@@ -54,6 +57,9 @@ $(document).ready(() => {
         }
         set visibilities(target) {
             this._visibilities = $visibilitySelect.val();
+            for (const item of this._visibilities) {
+
+            }
         }
         get openIn() {
             return this._openIn;
@@ -70,6 +76,17 @@ $(document).ready(() => {
                 $('#editDescription').parent().removeClass('d-none');
             } else {
                 $('#editDescription').parent().addClass('d-none');
+            }
+        }
+        get categoriesStatus() {
+            return this._categoriesStatus;
+        }
+        set categoriesStatus({ checked }) {
+            this._categoriesStatus = checked;
+            if (checked) {
+               $categoriesSelect.parent().removeClass('d-none');
+            } else {
+                $categoriesSelect.parent().addClass('d-none');
             }
         }
         get propertiesStatus() {
@@ -95,6 +112,13 @@ $(document).ready(() => {
                 $funcsSelect.parent().addClass('d-none');
                 this._functions = [];
             }
+        }
+        get _categories() {
+            return this._categories;
+        }
+        set _categories(target) {
+            const value = $categoriesSelect.val()
+            this._categories = value;
         }
         get _properties() {
             return this._properties;
