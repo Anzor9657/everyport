@@ -16,12 +16,12 @@ $(document).ready(() => {
     const $form = $('form');
 
     // Variabes
-    let serviceId;
     class FormData {
         _category
         _name
         _visibilities = []
         _openIn
+        _browserLink
         _generalDescriptionStatus = false
         _categoriesStatus = false
         _propertiesStatus = false
@@ -35,6 +35,36 @@ $(document).ready(() => {
         constructor(props) {
             for (const [key, val] of Object.entries(props)) {
                 this[`_${key}`] = val;
+                if (typeof val === 'boolean') {
+                    $(`[name='${key}']`).prop('checked', val);
+                    if (key === 'generalDescriptionStatus') {
+                        $('#editDescription').parent().removeClass('d-none');
+                    }
+                } else if (key === 'openIn') {
+                    $('#openIn').append(`
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input-styled" value="app" name="openIn" ${val === 'app' ? 'checked' : ''} data-fouc>
+                                в приложении
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input-styled" value="frame" name="openIn" ${val === 'frame' ? 'checked' : ''} data-fouc>
+                                в фрейме
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input-styled" value="browser" name="openIn" ${val === 'browser' ? 'checked' : ''} data-fouc>
+                                в браузере
+                            </label>
+                        </div>`);
+                    $('#browserLinkInput').parent().removeClass('d-none');
+                    $('.hide-if-browser').addClass('hide-before-browser');
+                } else {
+                    $(`[name='${key}']`).val(val);
+                }
             }
         }
 
@@ -57,15 +87,27 @@ $(document).ready(() => {
         }
         set visibilities(target) {
             this._visibilities = $visibilitySelect.val();
-            for (const item of this._visibilities) {
-
-            }
         }
         get openIn() {
             return this._openIn;
         }
         set openIn({ value }) {
             this._openIn = value;
+            if (value === 'browser') {
+                $('#browserLinkInput').parent().removeClass('d-none');
+                $('.hide-if-browser').addClass('hide-before-browser');
+            } else {
+                $('#browserLinkInput').parent().addClass('d-none');
+                $('.hide-if-browser').removeClass('hide-before-browser');
+                this._browserLink = null
+                $('#browserLinkInput').val('')
+            }
+        }
+        get browserLink() {
+            return this._browserLink;
+        }
+        set browserLink({ value }) {
+            this._browserLink = value;
         }
         get generalDescriptionStatus() {
             return this._generalDescriptionStatus;
@@ -86,7 +128,7 @@ $(document).ready(() => {
             if (checked) {
                $categoriesSelect.parent().removeClass('d-none');
             } else {
-                $categoriesSelect.parent().addClass('d-none');
+               $categoriesSelect.parent().addClass('d-none');
             }
         }
         get propertiesStatus() {
@@ -156,16 +198,116 @@ $(document).ready(() => {
             fileReader(this._icon);
         }
     }
-    const formData = new FormData({ category: 3 });
+    const tableData = [{
+        id: 1,
+        category: 1,
+        name: 'Выбрана категория 1',
+        visibilities: [1, 2],
+        openIn: 'app',
+        browserLink: null,
+        generalDescriptionStatus: true,
+        categoriesStatus: false,
+        propertiesStatus: false,
+        companyStatus: false,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    },
+    {
+        id: 2,
+        category: 1,
+        name: 'Выбрана категория 2',
+        visibilities: [1, 2],
+        openIn: 'frame',
+        browserLink: null,
+        generalDescriptionStatus: false,
+        categoriesStatus: false,
+        propertiesStatus: false,
+        companyStatus: true,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    },
+    {
+        id: 3,
+        category: 1,
+        name: 'Выбрана категория 3',
+        visibilities: [1],
+        openIn: 'browser',
+        browserLink: 'http://www.google.com',
+        generalDescriptionStatus: true,
+        categoriesStatus: false,
+        propertiesStatus: false,
+        companyStatus: false,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    },
+    {
+        id: 4,
+        category: 1,
+        name: 'Выбрана категория 4',
+        visibilities: [2],
+        openIn: 'app',
+        browserLink: null,
+        generalDescriptionStatus: true,
+        categoriesStatus: false,
+        propertiesStatus: false,
+        companyStatus: false,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    },
+    {
+        id: 5,
+        category: 1,
+        name: 'Выбрана категория 5',
+        visibilities: [1, 2],
+        openIn: 'app',
+        browserLink: null,
+        generalDescriptionStatus: true,
+        categoriesStatus: false,
+        propertiesStatus: false,
+        companyStatus: false,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    },
+    {
+        id: 6,
+        category: 1,
+        name: 'Выбрана категория 6',
+        visibilities: [1],
+        openIn: 'app',
+        browserLink: null,
+        generalDescriptionStatus: false,
+        categoriesStatus: true,
+        propertiesStatus: false,
+        companyStatus: true,
+        categories: [],
+        properties: [],
+        content: [],
+        functions: [],
+        icon: null 
+    }];
+    let formData = null;
     const categories = [{
             id: 1,
             name: 'Ожидание',
-            usedServices: [2, 3, 4, 6],
         },
         {
             id: 2,
             name: 'Багаж',
-            usedServices: [11, 12, 13, 14, 15, 16],
         },
         {
             id: 3,
@@ -234,7 +376,7 @@ $(document).ready(() => {
     // Functions
     function init() {
         setContentHeader();
-        fillTable(categories);
+        fillTable(tableData);
         renderTabs();
         fillCategoriesSelect();
         fillVisibilitiesSelect();
@@ -246,13 +388,15 @@ $(document).ready(() => {
         let textToRender = '';
         for (const [key, val] of queryParams) {
             if (key === 'id') {
-                serviceId = Number(val);
-                const row = services.find((item) => item.id === serviceId);
-                if (row) {
-                    textToRender = row.name;
+                tableItemId = Number(val);
+                const tableItem = tableData.find((item) => item.id === tableItemId);
+                if (tableItem.id) {
+                    textToRender = tableItem.name;
+                    formData = new FormData(tableItem);
                 }
             } else {
                 textToRender = 'Добавить';
+                formData = new FormData();
             }
         };
         if (textToRender) {
@@ -260,27 +404,24 @@ $(document).ready(() => {
         }
     }
 
-    function fillTable(items) {
+    function fillTable(rows) {
         $tbody.empty();
         let tableRows = '';
-        for (const category of items) {
-            if (category.usedServices) {
-                for (const usedServices of category.usedServices) {
-                    const serviceInfo = services.find((service) => service.id === usedServices);
-                    let visibilityArray = [];
-                    if (serviceInfo && serviceInfo.visibilities) {
-                        for (const usedVisibilities of serviceInfo.visibilities) {
-                            const visibilityInfo = visibilities.find((visibility) => visibility.id === usedVisibilities);
-                            visibilityArray.push(visibilityInfo.name);
-                        }
+        for (const row of rows) {
+            if (row) {
+                const visibilityArray = [];
+                const category = categories.find((item) => item.id === row.category);
+                for (const visibility of visibilities) {
+                    if (row.visibilities.includes(visibility.id)) {
+                        visibilityArray.push(visibility.name);
                     }
-                    tableRows += `
-                        <tr id="row-${serviceInfo.id}" class="row-hovered">
-                            <td>${category.name}</td>
-                            <td>${serviceInfo.name}</td>
-                            <td>${visibilityArray.join(', ')}</td>
-                        </tr>`;
                 }
+                tableRows += `
+                    <tr id="${row.id}" class="row-hovered">
+                        <td>${category.name}</td>
+                        <td>${row.name}</td>
+                        <td>${visibilityArray.join(', ')}</td>
+                    </tr>`;
             }
         }
         $tbody.append(tableRows);
@@ -288,7 +429,7 @@ $(document).ready(() => {
 
     function searchHandler(event) {
         const { value } = event.target;
-        const toRenderTable = categories.filter((category) => category.name.toLowerCase().includes(value.toLowerCase()));
+        const toRenderTable = tableData.filter((row) => row.name.toLowerCase().includes(value.toLowerCase()));
         fillTable(toRenderTable);
     }
 
@@ -298,7 +439,7 @@ $(document).ready(() => {
     }
 
     function rowClickHandler() {
-        const [, rowId] = $(this).attr('id').split('-');
+        const rowId = $(this).attr('id');
         const hrefArray = location.href.split('/');
         hrefArray[hrefArray.length - 1] = 'form.html';
         location.href = `${hrefArray.join('/')}?id=${rowId}`;
@@ -395,11 +536,10 @@ $(document).ready(() => {
 
     function formInputHandler({ target }) {
         formData[target.name] = target;
-        console.log(formData)
     }
 
     function formBtnHandler(event) {
-        console.log($visibilitySelect.val())
+        console.log(formData)
         event.preventDefault();
     }
 

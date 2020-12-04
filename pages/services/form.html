@@ -215,7 +215,7 @@
                                 </div>
                                 <div class="col-12 form-group">
                                     <label class="font-500">Название</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control font-500" name="name">
                                 </div>
                                 <div class="col-12 form-group font-500">
                                     <label>Область видимости</label>
@@ -223,28 +223,12 @@
                                 </div>
                                 <div class="col-12 form-group mb-3 d-flex flex-wrap align-items-center font-500">
                                     <label class="mr-3">Открывать</label>
-                                    <div id="openIn">
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled" value="app" name="openIn" checked data-fouc>
-                                                в приложении
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled" value="frame" name="openIn" data-fouc>
-                                                в фрейме
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled" value="brouser" name="openIn" data-fouc>
-                                                в браузере
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <div id="openIn"></div>
                                 </div>
-                                <div class="col-12 form-group font-500 d-flex justify-content-start flex-wrap">
+                                <div class="col-12 form-group font-500 d-none">
+                                    <input type="text" class="form-control font-500" name="browserLink" id="browserLinkInput">
+                                </div>
+                                <div class="col-12 form-group font-500 d-flex justify-content-start flex-wrap hide-if-browser">
                                     <div class="form-check form-check-switchery mr-4">
                                         <label class="form-check-label">
 										<input type="checkbox" class="form-check-input-switchery" name="generalDescriptionStatus" data-fouc>
@@ -274,25 +258,25 @@
                                     <img src="../../assets/icons/Details.svg" alt="" height="20px" class="interactive">
                                     </div>
                                 </div>
-                                <div class="col-12 form-group font-500 d-none">
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
                                     <a href="#" class="toggle" id="editDescription">
                                         <img src="../../assets/icons/Edit.svg" alt="" class="icon dark font-size-base mr-1">
                                         <span class="blue font-500">Редактировать описание</span>
                                     </a>
                                 </div>
-                                <div class="col-12 form-group font-500 d-none">
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
                                     <label>Категория</label>
                                     <select multiple="multiple" class="form-control select" id="categoriesSelect" name="categories" data-fouc></select>
                                 </div>
-                                <div class="col-12 form-group font-500 d-none">
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
                                     <label>Свойства</label>
                                     <select multiple="multiple" class="form-control select" id="propsSelect" name="properties" data-fouc></select>
                                 </div>
-                                <div class="col-12 form-group font-500">
+                                <div class="col-12 form-group font-500 hide-if-browser">
                                     <label>Контент</label>
                                     <select multiple="multiple" class="form-control select" id="contentSelect" name="content" data-fouc></select>
                                 </div>
-                                <div class="col-12 form-group font-500 d-none">
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
                                     <label>Функции</label>
                                     <select multiple="multiple" class="form-control select" id="funcsSelect" name="functions" data-fouc></select>
                                 </div>

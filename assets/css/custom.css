@@ -40,6 +40,10 @@
     min-width: 1rem;
 }
 
+.hide-before-browser {
+    display: none !important;
+}
+
 .interactive {
     opacity: 0.5;
     cursor: pointer;
