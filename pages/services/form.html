@@ -27,11 +27,16 @@
     <!-- Theme JS files -->
     <script src="../../assets/js/plugins/prism.min.js"></script>
     <script src="../../assets/js/plugins/sticky.min.js"></script>
-
+    <script src="../../global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_select2.js"></script>
     <script src="../../assets/js/main/app.js"></script>
     <script src="../../assets/js/pages/components_scrollspy.js"></script>
-    <!-- /theme JS files -->
+    <script src="../../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="../../global_assets/js/demo_pages/form_checkboxes_radios.js"></script>
 
+    <!-- /theme JS files -->
 </head>
 
 <body data-spy="scroll" data-target=".sidebar-component-right">
@@ -202,15 +207,95 @@
                 <div class="d-flex align-items-start flex-column flex-md-row">
                     <div class="card fill-width p-3">
                         <ul class="nav nav-tabs" id="langTabs"></ul>
-                        <div id="form">
+                        <form action="#">
                             <div class="row">
+                                <div class="col-12 form-group font-500">
+                                    <label>Категории</label>
+                                    <select class="form-control select font-500" id="categorySelect" name="category" data-fouc></select>
+                                </div>
                                 <div class="col-12 form-group">
-                                    <label for="categorySelect" class="font-500">Категории</label>
-                                    <select class="form-control font-500" id="categorySelect" name="category"></select>
+                                    <label class="font-500">Название</label>
+                                    <input type="text" class="form-control font-500" name="name">
+                                </div>
+                                <div class="col-12 form-group font-500">
+                                    <label>Область видимости</label>
+                                    <select multiple="multiple" class="form-control select" id="visibilitySelect" name="visibilities" data-fouc></select>
+                                </div>
+                                <div class="col-12 form-group mb-3 d-flex flex-wrap align-items-center font-500">
+                                    <label class="mr-3">Открывать</label>
+                                    <div id="openIn"></div>
+                                </div>
+                                <div class="col-12 form-group font-500 d-none">
+                                    <input type="text" class="form-control font-500" name="browserLink" id="browserLinkInput">
+                                </div>
+                                <div class="col-12 form-group font-500 d-flex justify-content-start flex-wrap hide-if-browser">
+                                    <div class="form-check form-check-switchery mr-4">
+                                        <label class="form-check-label">
+										<input type="checkbox" class="form-check-input-switchery" name="generalDescriptionStatus" data-fouc>
+										Общее описание
+                                    </label>
+                                    <img src="../../assets/icons/Details.svg" alt="" height="20px" class="interactive">
+                                    </div>
+                                    <div class="form-check form-check-switchery mr-4">
+                                        <label class="form-check-label">
+										<input type="checkbox" class="form-check-input-switchery" name="categoriesStatus" data-fouc>
+										Категории
+                                    </label>
+                                    <img src="../../assets/icons/Details.svg" alt="" height="20px" class="interactive">
+                                    </div>
+                                    <div class="form-check form-check-switchery mr-4">
+                                        <label class="form-check-label">
+										<input type="checkbox" class="form-check-input-switchery" name="propertiesStatus" data-fouc>
+										Свойства
+                                    </label>
+                                    <img src="../../assets/icons/Details.svg" alt="" height="20px" class="interactive">
+                                    </div>
+                                    <div class="form-check form-check-switchery mr-4">
+                                        <label class="form-check-label">
+										<input type="checkbox" class="form-check-input-switchery" name="companyStatus" data-fouc>
+                                        Компания
+                                    </label>
+                                    <img src="../../assets/icons/Details.svg" alt="" height="20px" class="interactive">
+                                    </div>
+                                </div>
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
+                                    <a href="#" class="toggle" id="editDescription">
+                                        <img src="../../assets/icons/Edit.svg" alt="" class="icon dark font-size-base mr-1">
+                                        <span class="blue font-500">Редактировать описание</span>
+                                    </a>
+                                </div>
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
+                                    <label>Категория</label>
+                                    <select multiple="multiple" class="form-control select" id="categoriesSelect" name="categories" data-fouc></select>
+                                </div>
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
+                                    <label>Свойства</label>
+                                    <select multiple="multiple" class="form-control select" id="propsSelect" name="properties" data-fouc></select>
+                                </div>
+                                <div class="col-12 form-group font-500 hide-if-browser">
+                                    <label>Контент</label>
+                                    <select multiple="multiple" class="form-control select" id="contentSelect" name="content" data-fouc></select>
+                                </div>
+                                <div class="col-12 form-group font-500 d-none hide-if-browser">
+                                    <label>Функции</label>
+                                    <select multiple="multiple" class="form-control select" id="funcsSelect" name="functions" data-fouc></select>
+                                </div>
+                                <div class="col-12 form-group font-500">
+                                    <label class="col-form-label">Иконка</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" accept="image/*" name="icon" id="iconInput">
+                                        <label class="custom-file-label" for="iconInput">Выбрать файл</label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img alt="" height="67px" class="d-none" id="iconPreview">
                                 </div>
                             </div>
-                        </div>
-                        <button class="btn back-blue white ml-auto font-500" id="saveBtn">Сохранить</button>
+                            <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-light mr-3 font-500">Удалить</button>
+                                <button type="submit" class="btn back-blue white font-500">Добавить</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

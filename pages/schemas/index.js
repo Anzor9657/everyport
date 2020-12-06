@@ -19,16 +19,19 @@ $(document).ready(() => {
                     terminal: 'A',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '5',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'B',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '2',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'C',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '3',
+                    floorSchemas: []
                 }
             ],
             publishInApp: false,
@@ -44,16 +47,19 @@ $(document).ready(() => {
                     terminal: 'A',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '2',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'B',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '5',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'C',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '3',
+                    floorSchemas: []
                 }
             ],
             publishInApp: false,
@@ -69,16 +75,19 @@ $(document).ready(() => {
                     terminal: 'A',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '3',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'B',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '4',
+                    floorSchemas: []
                 },
                 {
                     terminal: 'C',
                     coordinates: 'XCF7+F2, Россия',
                     floors: '5',
+                    floorSchemas: []
                 }
             ],
             publishInApp: false,
@@ -113,14 +122,20 @@ $(document).ready(() => {
         $tbody.empty();
         let tableRows = '';
         for (const item of items) {
+            let uploaded = 0;
+            let total = 0;
+            for (const terminal of item.terminals) {
+                uploaded += terminal.floorSchemas.length;
+                total += Number(terminal.floors);
+            }
             tableRows += `
             <tr id="row-${item.id}" class="row-hovered">
                 <td>${item.code.toUpperCase()}</td>
                 <td>${item.city}</td>
                 <td>${item.name}</td>
                 <td>
-                    <span class="badge white ${item.status > 50 ? 'back-gray-dark' : 'back-red'}">
-                        ${item.status}%
+                    <span class="badge white ${uploaded === total ? 'back-green' : 'back-red'}">
+                    ${uploaded}/${total}
                     </span>
                 </td>
             </tr>`;
@@ -150,14 +165,18 @@ $(document).ready(() => {
         $terminalTabs.empty();
         const row = tableData.find((item) => item.id === airportId)
         if (row) {
-            const terminalRows = row.terminals.map((item, index) => `
+            const terminalRows = row.terminals.map((item, index) => {
+                console.log(item)
+                return (`
                 <li class="nav-item">
                     <a class="nav-link ${!index ? 'active' : ''} font-700" href="#" id="tab-${index}">
                         Терминал ${item.terminal}
-                        <span class="badge white back-gray-dark">40%</span>
+                        <span class="badge white ${item.floorSchemas.length === Number(item.floors) ? 'back-green' : 'back-red'}">
+                        ${item.floorSchemas.length}/${item.floors}
+                        </span>
                     </a>
                 </li>
-                `)
+                `)})
             $terminalTabs.append(terminalRows.join(''));
         }
     }
@@ -210,7 +229,9 @@ $(document).ready(() => {
                     item.terminals[terminalId].floorSchemas[schemaKey] = file;
                 }
             });
+            console.log($(this).parent().parent())
             $(`label[for="${schemaKey}"]`).text(file.name);
+            renderTabs();
         }
     }
 
