@@ -229,7 +229,6 @@ $(document).ready(() => {
                     item.terminals[terminalId].floorSchemas[schemaKey] = file;
                 }
             });
-            console.log($(this).parent().parent())
             $(`label[for="${schemaKey}"]`).text(file.name);
             renderTabs();
         }
