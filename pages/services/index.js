@@ -251,7 +251,7 @@ $(document).ready(() => {
     },
     {
         id: 4,
-        category: 1,
+        category: 2,
         name: 'Выбрана категория 4',
         visibilities: [2],
         openIn: 'app',
@@ -268,7 +268,7 @@ $(document).ready(() => {
     },
     {
         id: 5,
-        category: 1,
+        category: 2,
         name: 'Выбрана категория 5',
         visibilities: [1, 2],
         openIn: 'app',
@@ -285,7 +285,7 @@ $(document).ready(() => {
     },
     {
         id: 6,
-        category: 1,
+        category: 2,
         name: 'Выбрана категория 6',
         visibilities: [1],
         openIn: 'app',
