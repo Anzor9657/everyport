@@ -166,7 +166,6 @@ $(document).ready(() => {
         const row = tableData.find((item) => item.id === airportId)
         if (row) {
             const terminalRows = row.terminals.map((item, index) => {
-                console.log(item)
                 return (`
                 <li class="nav-item">
                     <a class="nav-link ${!index ? 'active' : ''} font-700" href="#" id="tab-${index}">
